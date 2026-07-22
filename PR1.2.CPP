@@ -1,37 +1,45 @@
 #include <iostream>
-#include<set>
+#include <set>
 using namespace std;
 
 int main()
 {
     int n;
 
-    cout << "Enter Number of records: ";
+    cout << "Enter number of book records: ";
     cin >> n;
 
-    int book[100];
+    int arr[n];
 
-    cout << "Enter Book IDs:\n";
+    cout << "Enter book IDs: ";
     for (int i = 0; i < n; i++)
-
     {
-        cin >> book[i];
+        cin >> arr[i];
     }
 
-    cout << "Duplicate Book IDs:\n";
+    set<int> printed;
+
+    cout << "Duplicate Book IDs: ";
 
     for (int i = 0; i < n; i++)
     {
-        for (int j = i++ ; j < n; j++)
-        {
-            if (book[i] == book[j])
-            {
-                cout << book[i] << " ";
-                break;
-                int set = book[j];
-            }
+        if (printed.find(arr[i]) != printed.end())
+            continue;
 
+        int count = 0;
+
+        for (int j = 0; j < n; j++)
+        {
+            if (arr[i] == arr[j])
+                count++;
+        }
+
+        if (count > 1)
+        {
+            cout << arr[i] << " ";
+            printed.insert(arr[i]);
         }
     }
+
     return 0;
 }

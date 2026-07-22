@@ -8,24 +8,35 @@ int main()
     cout << "Enter number of items: ";
     cin >> n;
 
-    string item[100];
+    int arr[n];
 
-    cout << "Enter items:\n";
-    for(int i=0;i<n;i++)
+    cout << "Enter the items: ";
+    for (int i = 0; i < n; i++)
     {
-        cin>>item[i];
+        cin >> arr[i];
     }
 
-    cout<<"Enter hours: ";
-    cin>>h;
+    cout << "Enter number of hours: ";
+    cin >> h;
 
     h = h % n;
 
-    cout<<"Final Display Order:\n";
-
-    for(int i=0;i<n;i++)
+    for (int i = 0; i < h; i++)
     {
-        cout<<item[(i+h)%n]<<" ";
+        int first = arr[0];
+
+        for (int j = 0; j < n - 1; j++)
+        {
+            arr[j] = arr[j + 1];
+        }
+
+        arr[n - 1] = first;
+    }
+
+    cout << "Final display order: ";
+    for (int i = 0; i < n; i++)
+    {
+        cout << arr[i] << " ";
     }
 
     return 0;

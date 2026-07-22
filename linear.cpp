@@ -16,12 +16,13 @@ int linearSearchIterative(int arr[], int n, int target)
 
 int main()
 {
-    int arr[] = {12, 45, 3, 67, 29, 8, 91};
-    int n = 7, target = 29;
+    int arr[] = {12,35,45,89,91,19,15,135};
+    int n = 7, target = 89;
 
     int result = linearSearchIterative(arr, n, target);
 
     if (result != -1)
+
         cout << "Found at index " << result;
     else
         cout << "Not Found";

@@ -13,7 +13,6 @@ void insertionSort(int arr[], int n)
             arr[j+1]=arr[j];
             j--;
         }
-
         arr[j+1]=key;
     }
 }

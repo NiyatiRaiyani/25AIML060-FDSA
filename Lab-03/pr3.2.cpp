@@ -3,8 +3,8 @@ using namespace std;
 
 int main()
 {
-    int arr[] = {2, 0, 2, 1, 1, 0,3,4};
-    int n = 8;
+    int arr[] = {2, 0, 2, 1, 1, 0};
+    int n = 6;
 
     int low = 0, mid = 0, high = n - 1;
 

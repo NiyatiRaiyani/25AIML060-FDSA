@@ -90,6 +90,37 @@ public:
         tail->next = NULL;
     }
     
+    void insert(int val, int pos)
+    {
+        if (pos < 0)
+        {
+            cout << "Invalid position. Cannot insert." << endl;
+            return;
+        }
+        if (pos == 0)
+        {
+            push_front(val);
+            return;
+        }
+        Node* newNode = new Node(val);
+        Node* temp = head;
+        for (int i = 0; i < pos - 1 && temp != NULL; i++)
+        {
+            temp = temp->next;
+        }
+        if (temp == NULL)
+        {
+            cout << "Position out of bounds. Cannot insert." << endl;
+            delete newNode;
+            return;
+        }
+        newNode->next = temp->next;
+        temp->next = newNode;
+        if (newNode->next == NULL)
+        {
+            tail = newNode;
+        }
+    }
 
     void printList()
     {
@@ -101,6 +132,23 @@ public:
         }
         cout << "NULL" << endl;
     }
+
+    int search(int val)
+    {
+        Node* temp = head;
+        int pos = 0;
+        while (temp != NULL)
+        {
+            if (temp->data == val)
+            {
+                return pos;
+            }
+            temp = temp->next;
+            pos++;
+        }
+        return -1; // Value not found
+    }
+    
 };
 
 int main()
@@ -121,5 +169,7 @@ int main()
 
     lst.printList();
 
+    cout<< "Position of 40: " << lst.search(40) << endl;
+    
     return 0;
 }

@@ -49,7 +49,22 @@ public:
             head = newNode;
         }
     }
-
+ 
+    void pop_front() 
+    {
+        if (head == NULL) 
+        {
+            return;
+        }
+        Node* temp = head;
+        head = head->next;
+        delete temp;
+        if (head == NULL) 
+        {
+            tail = NULL;
+        }
+    }
+    
     void printList() 
     {
         Node* temp = head;

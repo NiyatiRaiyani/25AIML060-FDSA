@@ -89,6 +89,7 @@ public:
         tail = temp;
         tail->next = NULL;
     }
+    
 
     void printList()
     {
@@ -105,13 +106,19 @@ public:
 int main()
 {
     List lst;
+
     lst.push_front(10);
     lst.push_front(20);
     lst.push_front(30);
+
     lst.push_back(40);
     lst.push_back(50);
+
     lst.pop_front();
+    lst.printList();
+
     lst.pop_back();
+
     lst.printList();
 
     return 0;

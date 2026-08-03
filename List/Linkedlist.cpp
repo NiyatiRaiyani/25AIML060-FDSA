@@ -1,74 +1,99 @@
 #include<iostream>
 using namespace std;
 
-class Node 
+class Node
 {
 public:
     int data;
     Node* next;
 
-    Node(int val) 
+    Node(int val)
     {
         data = val;
         next = NULL;
     }
 };
 
-class List 
+class List
 {
     Node* head;
     Node* tail;
 public:
-    List() 
+    List()
     {
         head = NULL;
         tail = NULL;
 
     }
-    void push_front(int val) 
+    void push_front(int val)
     {
         Node* newNode = new Node(val);
         newNode->next = head;
         head = newNode;
-        if (tail == NULL) 
+        if (tail == NULL)
         {
             tail = newNode;
         }
     }
 
-    void push_back(int val) 
+    void push_back(int val)
     {
         Node* newNode = new Node(val);
-        if (tail != NULL) 
+        if (tail != NULL)
         {
             tail->next = newNode;
         }
         tail = newNode;
-        if (head == NULL) 
+        if (head == NULL)
         {
             head = newNode;
         }
     }
- 
-    void pop_front() 
+
+    void pop_front()
     {
-        if (head == NULL) 
+        if (head == NULL)
         {
+            cout << "List is empty. Cannot pop from front." << endl;
             return;
         }
         Node* temp = head;
         head = head->next;
         delete temp;
-        if (head == NULL) 
+        if (head == NULL)
         {
             tail = NULL;
         }
     }
-    
-    void printList() 
+
+    void pop_back()
+    {
+        if (tail == NULL)
+        {
+            cout << "List is empty. Cannot pop from back." << endl;
+            return;
+        }
+        if (head == tail)
+        {
+            delete head;
+            head = NULL;
+            tail = NULL;
+            return;
+        }
+        Node* temp = head;
+        while (temp->next != tail)
+        {
+            temp = temp->next;
+        }
+        delete tail;
+        tail = temp;
+        tail->next = NULL;
+    }
+
+    void printList()
     {
         Node* temp = head;
-        while (temp != NULL) 
+        while (temp != NULL)
         {
             cout << temp->data << "->";
             temp = temp->next;
@@ -77,7 +102,7 @@ public:
     }
 };
 
-int main() 
+int main()
 {
     List lst;
     lst.push_front(10);
@@ -85,6 +110,9 @@ int main()
     lst.push_front(30);
     lst.push_back(40);
     lst.push_back(50);
+    lst.pop_front();
+    lst.pop_back();
     lst.printList();
+
     return 0;
 }

@@ -64,7 +64,7 @@ vector<string> split(const string &);
  *  2. INTEGER_ARRAY brr
  */
 
-vector<int> missingNumbers(vector<int> arr, vector<int> brr)
+vector<int> missingNumbers(vector<int> arr, vector<int> brr) 
 {
     map<int, int> freq1, freq2;
 
@@ -79,9 +79,9 @@ vector<int> missingNumbers(vector<int> arr, vector<int> brr)
     vector<int> ans;
 
     // Check which numbers have different frequencies
-    for (auto it : freq2)
+    for (auto it : freq2) 
     {
-        if (freq1[it.first] != it.second)
+        if (freq1[it.first] != it.second) 
         {
             ans.push_back(it.first);
         }
@@ -89,6 +89,7 @@ vector<int> missingNumbers(vector<int> arr, vector<int> brr)
 
     return ans;
 }
+
 int main()
 {
     ofstream fout(getenv("OUTPUT_PATH"));
@@ -105,7 +106,7 @@ int main()
 
     vector<int> arr(n);
 
-    for (int i = 0; i < n; i++)
+    for (int i = 0; i < n; i++) 
     {
         int arr_item = stoi(arr_temp[i]);
 
@@ -124,7 +125,7 @@ int main()
 
     vector<int> brr(m);
 
-    for (int i = 0; i < m; i++)
+    for (int i = 0; i < m; i++) 
     {
         int brr_item = stoi(brr_temp[i]);
 
@@ -133,11 +134,11 @@ int main()
 
     vector<int> result = missingNumbers(arr, brr);
 
-    for (size_t i = 0; i < result.size(); i++)
+    for (size_t i = 0; i < result.size(); i++) 
     {
         fout << result[i];
 
-        if (i != result.size() - 1)
+        if (i != result.size() - 1) 
         {
             fout << " ";
         }
@@ -150,7 +151,7 @@ int main()
     return 0;
 }
 
-string ltrim(const string &str)
+string ltrim(const string &str) 
 {
     string s(str);
 
@@ -162,7 +163,7 @@ string ltrim(const string &str)
     return s;
 }
 
-string rtrim(const string &str)
+string rtrim(const string &str) 
 {
     string s(str);
 
@@ -174,14 +175,14 @@ string rtrim(const string &str)
     return s;
 }
 
-vector<string> split(const string &str)
+vector<string> split(const string &str) 
 {
     vector<string> tokens;
 
     string::size_type start = 0;
     string::size_type end = 0;
 
-    while ((end = str.find(" ", start)) != string::npos)
+    while ((end = str.find(" ", start)) != string::npos) 
     {
         tokens.push_back(str.substr(start, end - start));
 
@@ -192,3 +193,4 @@ vector<string> split(const string &str)
 
     return tokens;
 }
+

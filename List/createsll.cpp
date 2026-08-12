@@ -51,6 +51,40 @@ void display()
     cout << "NULL";
 }
 
+void insertAtBeginning(struct Node **head, int data)
+{
+    struct Node *newNode = new Node;
+
+    newNode->data = data;
+    newNode->next = *head;
+
+    *head = newNode;
+}
+
+void insertAtEnd(struct Node **head, int data)
+{
+    struct Node *newNode = new Node;
+    struct Node *temp;
+
+    newNode->data = data;
+    newNode->next = NULL;
+
+    if(*head == NULL)
+    {
+        *head = newNode;
+    }
+    else
+    {
+        temp = *head;
+
+        while(temp->next != NULL)
+        {
+            temp = temp->next;
+        }
+
+        temp->next = newNode;
+    }
+}
 int main()
 {
     int n;
@@ -59,6 +93,8 @@ int main()
     cin >> n;
 
     createList(n);
+    insertAtBeginning(&header, 10);
+    insertAtEnd(&header, 50);
     display();
 
     return 0;

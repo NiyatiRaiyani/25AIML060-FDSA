@@ -11,6 +11,7 @@ struct Node {
     }
 };
 
+// Insert patient at the end
 void insertEnd(Node*& head, int token) {
     Node* newNode = new Node(token);
 
@@ -27,16 +28,19 @@ void insertEnd(Node*& head, int token) {
     temp->next = newNode;
 }
 
+// Delete patient by token value
 void deleteByValue(Node*& head, int token) {
     if (head == nullptr) {
         cout << "Queue is empty." << endl;
         return;
     }
 
+    // Delete first node
     if (head->token == token) {
         Node* temp = head;
         head = head->next;
         delete temp;
+
         cout << "Patient token deleted." << endl;
         return;
     }
@@ -47,7 +51,7 @@ void deleteByValue(Node*& head, int token) {
         temp = temp->next;
 
     if (temp->next == nullptr) {
-        cout << "Token not found." << endl;
+        cout << "Patient token not found." << endl;
         return;
     }
 
@@ -58,6 +62,7 @@ void deleteByValue(Node*& head, int token) {
     cout << "Patient token deleted." << endl;
 }
 
+// Display queue from front to back
 void displayForward(Node* head) {
     if (head == nullptr) {
         cout << "Queue is empty." << endl;
@@ -78,6 +83,7 @@ void displayForward(Node* head) {
     cout << endl;
 }
 
+// Print queue from last to first
 void displayReverse(Node* head) {
     if (head == nullptr)
         return;
@@ -90,12 +96,12 @@ int main() {
     Node* head = nullptr;
     int n, token, choice;
 
-    cout << "===== Hospital Patient Queue =====" << endl;
+    cout << "      Hospital Patient Token Queue " << endl;
 
     cout << "Enter number of patients: ";
     cin >> n;
 
-    cout << "Enter patient tokens:" << endl;
+    cout << "Enter patient tokens: ";
 
     for (int i = 0; i < n; i++) {
         cin >> token;
@@ -104,15 +110,14 @@ int main() {
 
     do {
         cout << "\n1. Delete Patient by Token";
-        cout << "\n2. Display Queue in Reverse";
-        cout << "\n3. Display Queue from Front";
+        cout << "\n2. Display Queue from Last to First";
+        cout << "\n3. Display Queue from Front to Back";
         cout << "\n4. Exit";
 
         cout << "\n\nEnter choice: ";
         cin >> choice;
 
         switch (choice) {
-
             case 1:
                 cout << "Enter token to delete: ";
                 cin >> token;
@@ -122,10 +127,10 @@ int main() {
                 break;
 
             case 2:
-                if (head == nullptr)
+                if (head == nullptr) {
                     cout << "Queue is empty." << endl;
-                else {
-                    cout << "Back to Front: ";
+                } else {
+                    cout << "Last to First: ";
                     displayReverse(head);
                     cout << endl;
                 }

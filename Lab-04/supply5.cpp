@@ -27,39 +27,56 @@ void insertEnd(Node*& head, char value) {
     temp->next = newNode;
 }
 
-void checkPalindrome(Node* head, int n) {
-    if (head == nullptr) {
-        cout << "Yes" << endl;
-        return;
+bool isPalindrome(Node* head) {
+    if (head == nullptr || head->next == nullptr)
+        return true;
+
+    Node* slow = head;
+    Node* fast = head;
+
+    // Find the middle of the list
+    while (fast != nullptr && fast->next != nullptr) {
+        slow = slow->next;
+        fast = fast->next->next;
     }
 
-    // Compare first and last characters
-    for (int i = 0; i < n / 2; i++) {
+    // Reverse the second half
+    Node* previous = nullptr;
+    Node* current = slow;
 
-        Node* left = head;
-        Node* right = head;
+    while (current != nullptr) {
+        Node* nextNode = current->next;
+        current->next = previous;
+        previous = current;
+        current = nextNode;
+    }
 
-        for (int j = 0; j < i; j++)
-            left = left->next;
+    // Compare both halves
+    Node* first = head;
+    Node* second = previous;
 
-        for (int j = 0; j < n - i - 1; j++)
-            right = right->next;
+    bool result = true;
 
-        if (left->data != right->data) {
-            cout << "No" << endl;
-            return;
+    while (second != nullptr) {
+        if (first->data != second->data) {
+            result = false;
+            break;
         }
+
+        first = first->next;
+        second = second->next;
     }
 
-    cout << "Yes" << endl;
+    return result;
 }
 
 int main() {
     Node* head = nullptr;
+
     int n;
     char ch;
 
-    cout << "===== Palindrome Message =====" << endl;
+    cout << "Palindrome Message " << endl;
 
     cout << "Enter number of characters: ";
     cin >> n;
@@ -71,8 +88,10 @@ int main() {
         insertEnd(head, ch);
     }
 
-    cout << "Palindrome: ";
-    checkPalindrome(head, n);
+    if (isPalindrome(head))
+        cout << "\nYes" << endl;
+    else
+        cout << "\nNo" << endl;
 
     return 0;
 }

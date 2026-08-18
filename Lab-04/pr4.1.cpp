@@ -11,12 +11,14 @@ struct Node {
     }
 };
 
+// Insert at front
 void insertFront(Node*& head, int token) {
     Node* newNode = new Node(token);
     newNode->next = head;
     head = newNode;
 }
 
+// Insert at end
 void insertEnd(Node*& head, int token) {
     Node* newNode = new Node(token);
 
@@ -33,24 +35,25 @@ void insertEnd(Node*& head, int token) {
     temp->next = newNode;
 }
 
-void insertAtPosition(Node*& head, int token, int pos) {
-    if (pos <= 0) {
+// Insert at a specific position
+void insertAtPosition(Node*& head, int token, int position) {
+    if (position <= 0) {
         cout << "Invalid position." << endl;
         return;
     }
 
-    if (pos == 1) {
+    if (position == 1) {
         insertFront(head, token);
         return;
     }
 
     Node* temp = head;
 
-    for (int i = 1; i < pos - 1 && temp != nullptr; i++)
+    for (int i = 1; i < position - 1 && temp != nullptr; i++)
         temp = temp->next;
 
     if (temp == nullptr) {
-        cout << "Position is beyond the queue length." << endl;
+        cout << "Position is beyond the current queue length." << endl;
         return;
     }
 
@@ -59,6 +62,7 @@ void insertAtPosition(Node*& head, int token, int pos) {
     temp->next = newNode;
 }
 
+// Display queue
 void display(Node* head) {
     if (head == nullptr) {
         cout << "Queue is empty." << endl;
@@ -69,8 +73,10 @@ void display(Node* head) {
 
     while (head != nullptr) {
         cout << head->token;
+
         if (head->next != nullptr)
             cout << " -> ";
+
         head = head->next;
     }
 
@@ -79,14 +85,14 @@ void display(Node* head) {
 
 int main() {
     Node* head = nullptr;
-    int choice, token, pos;
+    int choice, token, position;
 
-    cout << "      Hospital Patient Queue " << endl;
+    cout << "===== Hospital Patient Token Queue =====" << endl;
 
     do {
-        cout << "\n1. Insert at Front";
-        cout << "\n2. Insert at End";
-        cout << "\n3. Insert at Position";
+        cout << "\n1. Insert Critical Patient at Front";
+        cout << "\n2. Insert Routine Patient at End";
+        cout << "\n3. Insert Priority Patient at Position";
         cout << "\n4. Display Queue";
         cout << "\n5. Exit";
 
@@ -95,25 +101,29 @@ int main() {
 
         switch (choice) {
             case 1:
-                cout << "Enter token: ";
+                cout << "Enter patient token: ";
                 cin >> token;
+
                 insertFront(head, token);
                 display(head);
                 break;
 
             case 2:
-                cout << "Enter token: ";
+                cout << "Enter patient token: ";
                 cin >> token;
+
                 insertEnd(head, token);
                 display(head);
                 break;
 
             case 3:
-                cout << "Enter token: ";
+                cout << "Enter patient token: ";
                 cin >> token;
+
                 cout << "Enter position: ";
-                cin >> pos;
-                insertAtPosition(head, token, pos);
+                cin >> position;
+
+                insertAtPosition(head, token, position);
                 display(head);
                 break;
 

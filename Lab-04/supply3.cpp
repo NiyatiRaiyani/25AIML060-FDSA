@@ -27,7 +27,7 @@ void insertEnd(Node*& head, int id) {
     temp->next = newNode;
 }
 
-void displayMiddle(Node* head) {
+void findMiddle(Node* head) {
     if (head == nullptr) {
         cout << "List is empty." << endl;
         return;
@@ -46,9 +46,10 @@ void displayMiddle(Node* head) {
 
 int main() {
     Node* head = nullptr;
+
     int n, id;
 
-    cout << "===== Relay Race =====" << endl;
+    cout << "     Relay Race " << endl;
 
     cout << "Enter number of runners: ";
     cin >> n;
@@ -60,7 +61,7 @@ int main() {
         insertEnd(head, id);
     }
 
-    displayMiddle(head);
+    findMiddle(head);
 
     return 0;
 }

@@ -44,7 +44,7 @@ void display(Node* head) {
 
 void removeKthFromEnd(Node*& head, int k) {
     if (head == nullptr || k <= 0) {
-        cout << "Invalid operation." << endl;
+        cout << "Invalid value of k." << endl;
         return;
     }
 
@@ -54,13 +54,14 @@ void removeKthFromEnd(Node*& head, int k) {
     // Move fast pointer k positions ahead
     for (int i = 0; i < k; i++) {
         if (fast == nullptr) {
-            cout << "K is greater than the number of coaches." << endl;
+            cout << "k is greater than the number of coaches." << endl;
             return;
         }
+
         fast = fast->next;
     }
 
-    // If fast reaches NULL, delete the first node
+    // k equals total number of coaches
     if (fast == nullptr) {
         Node* temp = head;
         head = head->next;
@@ -68,7 +69,7 @@ void removeKthFromEnd(Node*& head, int k) {
         return;
     }
 
-    // Move both pointers together
+    // Move both pointers until fast reaches the last node
     while (fast->next != nullptr) {
         fast = fast->next;
         slow = slow->next;
@@ -81,9 +82,10 @@ void removeKthFromEnd(Node*& head, int k) {
 
 int main() {
     Node* head = nullptr;
+
     int n, coach, k;
 
-    cout << "===== Train Coach Management =====" << endl;
+    cout << "      Train Coach Management " << endl;
 
     cout << "Enter number of coaches: ";
     cin >> n;
@@ -95,6 +97,7 @@ int main() {
         insertEnd(head, coach);
     }
 
+    cout << "\nOriginal train: ";
     display(head);
 
     cout << "Enter k (position from rear): ";

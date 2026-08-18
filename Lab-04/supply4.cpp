@@ -57,9 +57,10 @@ void reverseList(Node*& head) {
 
 int main() {
     Node* head = nullptr;
+
     int n, frame;
 
-    cout << "===== Film Frame Sequence =====" << endl;
+    cout << " Film Frame Sequence " << endl;
 
     cout << "Enter number of frames: ";
     cin >> n;

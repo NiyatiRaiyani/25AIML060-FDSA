@@ -53,9 +53,10 @@ void swapPairs(Node* head) {
 
 int main() {
     Node* head = nullptr;
+
     int n, id;
 
-    cout << "===== Student Pair Swapping =====" << endl;
+    cout << "      Student Pair Swapping " << endl;
 
     cout << "Enter number of students: ";
     cin >> n;

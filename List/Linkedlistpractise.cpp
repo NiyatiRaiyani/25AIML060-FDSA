@@ -19,7 +19,6 @@ int main()
     n2->data = 20;
     n3->data = 30;
 
-
     n1->next = n2;
     n2->next = n3;
     n3->next = NULL;

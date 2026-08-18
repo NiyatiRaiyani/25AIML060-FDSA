@@ -2,92 +2,107 @@
 using namespace std;
 
 struct Node {
-    int data;
+    int coach;
     Node* next;
+
+    Node(int value) {
+        coach = value;
+        next = nullptr;
+    }
 };
 
-Node* createNode(int value) {
-    Node* newNode = new Node;
-    newNode->data = value;
-    newNode->next = NULL;
-    return newNode;
-}
+void insertEnd(Node*& head, int coach) {
+    Node* newNode = new Node(coach);
 
-void insertEnd(Node* &head, int value) {
-    Node* newNode = createNode(value);
-
-    if (head == NULL) {
+    if (head == nullptr) {
         head = newNode;
         return;
     }
 
     Node* temp = head;
-    while (temp->next != NULL)
+
+    while (temp->next != nullptr)
         temp = temp->next;
 
     temp->next = newNode;
 }
 
-void deleteKthFromEnd(Node* &head, int k) {
-    if (head == NULL)
+void display(Node* head) {
+    cout << "Train: ";
+
+    while (head != nullptr) {
+        cout << head->coach;
+
+        if (head->next != nullptr)
+            cout << " -> ";
+
+        head = head->next;
+    }
+
+    cout << endl;
+}
+
+void removeKthFromEnd(Node*& head, int k) {
+    if (head == nullptr || k <= 0) {
+        cout << "Invalid operation." << endl;
         return;
+    }
 
-    Node *fast = head, *slow = head;
+    Node* fast = head;
+    Node* slow = head;
 
-    // Move fast pointer k steps ahead
+    // Move fast pointer k positions ahead
     for (int i = 0; i < k; i++) {
-        if (fast == NULL) {
-            cout << "Invalid value of k!" << endl;
+        if (fast == nullptr) {
+            cout << "K is greater than the number of coaches." << endl;
             return;
         }
         fast = fast->next;
     }
 
-    // If k == length, delete first node
-    if (fast == NULL) {
+    // If fast reaches NULL, delete the first node
+    if (fast == nullptr) {
         Node* temp = head;
         head = head->next;
         delete temp;
         return;
     }
 
-    while (fast->next != NULL) {
+    // Move both pointers together
+    while (fast->next != nullptr) {
         fast = fast->next;
         slow = slow->next;
     }
 
-    Node* temp = slow->next;
-    slow->next = temp->next;
-    delete temp;
-}
-
-void display(Node* head) {
-    while (head != NULL) {
-        cout << head->data << " ";
-        head = head->next;
-    }
-    cout << endl;
+    Node* deleteNode = slow->next;
+    slow->next = deleteNode->next;
+    delete deleteNode;
 }
 
 int main() {
-    Node* head = NULL;
-    int n, value, k;
+    Node* head = nullptr;
+    int n, coach, k;
+
+    cout << "===== Train Coach Management =====" << endl;
 
     cout << "Enter number of coaches: ";
     cin >> n;
 
     cout << "Enter coach numbers: ";
+
     for (int i = 0; i < n; i++) {
-        cin >> value;
-        insertEnd(head, value);
+        cin >> coach;
+        insertEnd(head, coach);
     }
 
-    cout << "Enter k: ";
+    display(head);
+
+    cout << "Enter k (position from rear): ";
     cin >> k;
 
-    deleteKthFromEnd(head, k);
+    removeKthFromEnd(head, k);
 
-    cout << "Remaining coaches: ";
+    cout << "After removing coach: ";
     display(head);
 
     return 0;

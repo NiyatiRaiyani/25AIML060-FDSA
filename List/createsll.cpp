@@ -5,7 +5,7 @@ struct Node
 {
     int data;
     Node *next;
-}*header = NULL;
+} *header = NULL;
 
 void createList(int n)
 {
@@ -60,7 +60,6 @@ void insertAtBeginning(Node **head, int data)
 
     *head = newNode;
 }
-
 void insertAtEnd(Node **head, int data)
 {
     Node *newNode = new Node;
@@ -85,24 +84,112 @@ void insertAtEnd(Node **head, int data)
         temp->next = newNode;
     }
 }
-void deleteAtFirst(Node **head)
+
+void insertAtK(Node **head, int data, int k)
 {
-    if(*head == NULL)
+    Node *newNode = new Node;
+    newNode->data = data;
+
+    // Insert at first position
+    if(k == 1)
     {
-        cout<<"List is empty";
+        newNode->next = *head;
+        *head = newNode;
         return;
     }
 
-     Node *temp = *head;
+    Node *temp = *head;
 
-    *head = (*head)->next;
+    for(int i = 1; i < k - 1 && temp != NULL; i++)
+    {
+        temp = temp->next;
+    }
 
-    delete temp;
+    if(temp == NULL)
+    {
+        cout << "Invalid position!\n";
+        delete newNode;
+        return;
+    }
+    newNode->next = temp->next;
+    temp->next = newNode;
+}
+
+void deleteAtFirst(Node **head)
+{
+    int data;
+
+    cout << "Enter data at first: ";
+    cin >> data;
+
+    if(*head == NULL)
+    {
+        cout << "List is empty";
+        return;
+    }
+
+    if((*head)->data == data)
+    {
+        Node *temp = *head;
+        *head = (*head)->next;
+        delete temp;
+    }
+    else
+    {
+        cout << "Data is not at first position";
+    }
+}
+
+void deleteAtEnd(Node **head)
+{
+    int data;
+
+    cout << "Enter data at last : ";
+    cin >> data;
+
+    if(*head == NULL)
+    {
+        cout << "List is empty";
+        return;
+    }
+
+    if((*head)->next == NULL)
+    {
+        if((*head)->data == data)
+        {
+            delete *head;
+            *head = NULL;
+        }
+        else
+        {
+            cout << "Data not found";
+        }
+        return;
+    }
+
+    Node *temp = *head;
+
+    while(temp->next->next != NULL)
+    {
+        temp = temp->next;
+    }
+
+    if(temp->next->data == data)
+    {
+        delete temp->next;
+        temp->next = NULL;
+    }
+    else
+    {
+        cout << "Data is not at the end";
+    }
 }
 
 int main()
 {
     int n;
+    int data;
+    int k;
 
     cout << "Enter number of nodes: ";
     cin >> n;
@@ -112,19 +199,41 @@ int main()
     cout << "\nOriginal List: ";
     display();
 
-    insertAtBeginning(&header, 10);
+    cout << "\nEnter data for Insert at Beginning: ";
+    cin >> data;
+
+    insertAtBeginning(&header, data);
 
     cout << "After Insert at Beginning: ";
     display();
 
-    insertAtEnd(&header, 50);
+    cout << "\nEnter data for Insert at End: ";
+    cin >> data;
+
+    insertAtEnd(&header, data);
 
     cout << "After Insert at End: ";
     display();
 
+    cout << "\nEnter data for Insert at K: ";
+    cin >> data;
+
+    cout << "Enter position K: ";
+    cin >> k;
+
+    insertAtK(&header, data, k);
+
+    cout << "After Insert at K: ";
+    display();
+
     deleteAtFirst(&header);
 
-    cout<<"After delete at first: ";
+    cout << "\nAfter Delete at First: ";
+    display();
+
+    deleteAtEnd(&header);
+
+    cout << "After Delete at End: ";
     display();
 
     return 0;

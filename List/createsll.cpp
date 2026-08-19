@@ -4,8 +4,8 @@ using namespace std;
 struct Node
 {
     int data;
-    struct Node *next;
-} *header = NULL;
+    Node *next;
+}*header = NULL;
 
 void createList(int n)
 {
@@ -48,12 +48,12 @@ void display()
         temp = temp->next;
     }
 
-    cout << "NULL";
+    cout << "NULL\n";
 }
 
-void insertAtBeginning(struct Node **head, int data)
+void insertAtBeginning(Node **head, int data)
 {
-    struct Node *newNode = new Node;
+    Node *newNode = new Node;
 
     newNode->data = data;
     newNode->next = *head;
@@ -61,10 +61,10 @@ void insertAtBeginning(struct Node **head, int data)
     *head = newNode;
 }
 
-void insertAtEnd(struct Node **head, int data)
+void insertAtEnd(Node **head, int data)
 {
-    struct Node *newNode = new Node;
-    struct Node *temp;
+    Node *newNode = new Node;
+    Node *temp;
 
     newNode->data = data;
     newNode->next = NULL;
@@ -85,6 +85,21 @@ void insertAtEnd(struct Node **head, int data)
         temp->next = newNode;
     }
 }
+void deleteAtFirst(Node **head)
+{
+    if(*head == NULL)
+    {
+        cout<<"List is empty";
+        return;
+    }
+
+     Node *temp = *head;
+
+    *head = (*head)->next;
+
+    delete temp;
+}
+
 int main()
 {
     int n;
@@ -93,8 +108,23 @@ int main()
     cin >> n;
 
     createList(n);
+
+    cout << "\nOriginal List: ";
+    display();
+
     insertAtBeginning(&header, 10);
+
+    cout << "After Insert at Beginning: ";
+    display();
+
     insertAtEnd(&header, 50);
+
+    cout << "After Insert at End: ";
+    display();
+
+    deleteAtFirst(&header);
+
+    cout<<"After delete at first: ";
     display();
 
     return 0;

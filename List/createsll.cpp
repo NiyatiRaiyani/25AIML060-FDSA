@@ -44,11 +44,11 @@ void display()
 
     while(temp != NULL)
     {
-        cout << temp->data << " -> ";
+        cout << temp->data<<"  ";
         temp = temp->next;
     }
 
-    cout << "NULL\n";
+    cout << " \n";
 }
 
 void insertAtBeginning(Node **head, int data)
@@ -119,7 +119,7 @@ void deleteAtFirst(Node **head)
 {
     int data;
 
-    cout << "Enter data at first: ";
+    cout << "\nEnter data at first for delete: ";
     cin >> data;
 
     if(*head == NULL)
@@ -144,7 +144,7 @@ void deleteAtEnd(Node **head)
 {
     int data;
 
-    cout << "Enter data at last : ";
+    cout << "\n Enter data at last for delete: ";
     cin >> data;
 
     if(*head == NULL)

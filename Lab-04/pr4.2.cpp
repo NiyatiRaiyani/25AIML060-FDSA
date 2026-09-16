@@ -96,7 +96,7 @@ int main() {
     Node* head = nullptr;
     int n, token, choice;
 
-    cout << "      Hospital Patient Token Queue " << endl;
+    cout << "=== Hospital Patient Token Queue === " << endl;
 
     cout << "Enter number of patients: ";
     cin >> n;

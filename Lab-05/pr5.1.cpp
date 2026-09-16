@@ -1,105 +1,104 @@
 #include <iostream>
+#include <string>
 using namespace std;
 
 struct Node
 {
     string song;
-    Node *prev;
-    Node *next;
+    Node* prev;
+    Node* next;
+
+    Node(string value)
+    {
+        song = value;
+        prev = nullptr;
+        next = nullptr;
+    }
 };
 
-Node *head = NULL;
-
-// Insert a song at the beginning
-void insertBeginning(string song)
+// Insert at front
+void insertFront(Node*& head, string song)
 {
-    Node *newNode = new Node;
+    Node* newNode = new Node(song);
 
-    newNode->song = song;
-    newNode->prev = NULL;
     newNode->next = head;
 
-    if (head != NULL)
+    if (head != nullptr)
         head->prev = newNode;
 
     head = newNode;
 }
 
-// Insert a song at the end
-void insertEnd(string song)
+// Insert at end
+void insertEnd(Node*& head, string song)
 {
-    Node *newNode = new Node;
+    Node* newNode = new Node(song);
 
-    newNode->song = song;
-    newNode->next = NULL;
-
-    if (head == NULL)
+    if (head == nullptr)
     {
-        newNode->prev = NULL;
         head = newNode;
         return;
     }
 
-    Node *temp = head;
+    Node* temp = head;
 
-    while (temp->next != NULL)
+    while (temp->next != nullptr)
         temp = temp->next;
 
     temp->next = newNode;
     newNode->prev = temp;
 }
 
-// Insert a song after a given song
-void insertAfter(string oldSong, string newSong)
+// Insert after a specific song
+void insertAfter(Node*& head, string oldSong, string newSong)
 {
-    Node *temp = head;
+    Node* temp = head;
 
-    while (temp != NULL && temp->song != oldSong)
+    while (temp != nullptr && temp->song != oldSong)
         temp = temp->next;
 
-    if (temp == NULL)
+    if (temp == nullptr)
     {
         cout << "Song not found." << endl;
         return;
     }
 
-    Node *newNode = new Node;
+    Node* newNode = new Node(newSong);
 
-    newNode->song = newSong;
     newNode->prev = temp;
     newNode->next = temp->next;
 
-    if (temp->next != NULL)
+    if (temp->next != nullptr)
         temp->next->prev = newNode;
 
     temp->next = newNode;
 }
 
-// Delete the first song
-void deleteFirst()
+// Delete first song
+void deleteFront(Node*& head)
 {
-    if (head == NULL)
+    if (head == nullptr)
     {
         cout << "Playlist is empty." << endl;
         return;
     }
 
-    Node *temp = head;
+    Node* temp = head;
     head = head->next;
 
-    if (head != NULL)
-        head->prev = NULL;
+    if (head != nullptr)
+        head->prev = nullptr;
 
     delete temp;
 }
 
-// Count total songs
-void countSongs()
+// Count songs
+void countSongs(Node* head)
 {
     int count = 0;
-    Node *temp = head;
+    Node* temp = head;
 
-    while (temp != NULL)
+    while (temp != nullptr)
     {
         count++;
         temp = temp->next;
@@ -109,23 +108,23 @@ void countSongs()
 }
 
 // Display playlist
-void display()
+void display(Node* head)
 {
-    if (head == NULL)
+    if (head == nullptr)
     {
         cout << "Playlist is empty." << endl;
         return;
     }
 
-    Node *temp = head;
+    Node* temp = head;
 
     cout << "Playlist: ";
 
-    while (temp != NULL)
+    while (temp != nullptr)
     {
         cout << temp->song;
 
-        if (temp->next != NULL)
+        if (temp->next != nullptr)
             cout << " <-> ";
 
         temp = temp->next;
@@ -136,71 +135,78 @@ void display()
 
 int main()
 {
-    int n;
+    Node* head = nullptr;
 
-    cout << "Enter number of operations: ";
-    cin >> n;
+    int choice;
+    string song;
+    string oldSong;
 
-    for (int i = 0; i < n; i++)
+    cout << "===== Music Playlist =====" << endl;
+
+    do
     {
-        int choice;
-        string song, oldSong;
-
-        cout << "\n1. Add at Beginning";
-        cout << "\n2. Add at End";
+        cout << "\n1. Insert at Front";
+        cout << "\n2. Insert at End";
         cout << "\n3. Insert After Song";
         cout << "\n4. Delete First Song";
         cout << "\n5. Count Songs";
         cout << "\n6. Display Playlist";
+        cout << "\n7. Exit";
 
-        cout << "\nEnter choice: ";
+        cout << "\n\nEnter choice: ";
         cin >> choice;
 
-        if (choice == 1)
+        switch (choice)
         {
-            cout << "Enter song: ";
-            cin >> song;
+            case 1:
+                cout << "Enter song name: ";
+                cin >> song;
 
-            insertBeginning(song);
-            display();
-        }
-        else if (choice == 2)
-        {
-            cout << "Enter song: ";
-            cin >> song;
+                insertFront(head, song);
+                display(head);
+                break;
 
-            insertEnd(song);
-            display();
-        }
-        else if (choice == 3)
-        {
-            cout << "Enter existing song: ";
-            cin >> oldSong;
+            case 2:
+                cout << "Enter song name: ";
+                cin >> song;
 
-            cout << "Enter new song: ";
-            cin >> song;
+                insertEnd(head, song);
+                display(head);
+                break;
 
-            insertAfter(oldSong, song);
-            display();
+            case 3:
+                cout << "Enter existing song name: ";
+                cin >> oldSong;
+
+                cout << "Enter new song name: ";
+                cin >> song;
+
+                insertAfter(head, oldSong, song);
+                display(head);
+                break;
+
+            case 4:
+                deleteFront(head);
+                display(head);
+                break;
+
+            case 5:
+                countSongs(head);
+                break;
+
+            case 6:
+                display(head);
+                break;
+
+            case 7:
+                cout << "Program ended." << endl;
+                break;
+
+            default:
+                cout << "Invalid choice." << endl;
         }
-        else if (choice == 4)
-        {
-            deleteFirst();
-            display();
-        }
-        else if (choice == 5)
-        {
-            countSongs();
-        }
-        else if (choice == 6)
-        {
-            display();
-        }
-        else
-        {
-            cout << "Invalid choice." << endl;
-        }
-    }
+
+    } while (choice != 7);
 
     return 0;
 }

@@ -13,7 +13,7 @@ struct Node
     }
 };
 
-// Insert a student at the front
+// Insert at front
 void insertFront(Node*& head, int token)
 {
     Node* newNode = new Node(token);
@@ -35,7 +35,7 @@ void insertFront(Node*& head, int token)
     head = newNode;
 }
 
-// Insert a student at the end
+// Insert at end
 void insertEnd(Node*& head, int token)
 {
     Node* newNode = new Node(token);
@@ -56,7 +56,7 @@ void insertEnd(Node*& head, int token)
     newNode->next = head;
 }
 
-// Insert a student at a specific position
+// Insert at position
 void insertAtPosition(Node*& head, int token, int position)
 {
     if (position <= 0)
@@ -73,7 +73,7 @@ void insertAtPosition(Node*& head, int token, int position)
 
     if (head == nullptr)
     {
-        cout << "Position is beyond the current circle length." << endl;
+        cout << "Position not found." << endl;
         return;
     }
 
@@ -85,7 +85,7 @@ void insertAtPosition(Node*& head, int token, int position)
 
         if (temp == head)
         {
-            cout << "Position is beyond the current circle length." << endl;
+            cout << "Position not found." << endl;
             return;
         }
     }
@@ -96,7 +96,7 @@ void insertAtPosition(Node*& head, int token, int position)
     temp->next = newNode;
 }
 
-// Delete the first student
+// Delete first student
 void deleteFront(Node*& head)
 {
     if (head == nullptr)
@@ -125,32 +125,6 @@ void deleteFront(Node*& head)
     delete temp;
 }
 
-// Display the circular list
-void display(Node* head)
-{
-    if (head == nullptr)
-    {
-        cout << "Circle is empty." << endl;
-        return;
-    }
-
-    Node* temp = head;
-
-    cout << "Circle: ";
-
-    do
-    {
-        cout << temp->token;
-        temp = temp->next;
-
-        if (temp != head)
-            cout << " -> ";
-
-    } while (temp != head);
-
-    cout << " -> " << head->token << endl;
-}
-
 // Count students
 void countStudents(Node* head)
 {
@@ -172,13 +146,42 @@ void countStudents(Node* head)
     cout << "Total students: " << count << endl;
 }
 
+// Display circular list
+void display(Node* head)
+{
+    if (head == nullptr)
+    {
+        cout << "Circle is empty." << endl;
+        return;
+    }
+
+    Node* temp = head;
+
+    cout << "Students: ";
+
+    do
+    {
+        cout << temp->token;
+
+        temp = temp->next;
+
+        if (temp != head)
+            cout << " -> ";
+
+    } while (temp != head);
+
+    cout << " -> " << head->token << endl;
+}
+
 int main()
 {
     Node* head = nullptr;
 
-    int choice, token, position;
+    int choice;
+    int token;
+    int position;
 
-    cout << "===== Student Passing Game =====" << endl;
+    cout << "===== Student Token Passing Circle =====" << endl;
 
     do
     {
@@ -186,8 +189,8 @@ int main()
         cout << "\n2. Join at End";
         cout << "\n3. Join at Position";
         cout << "\n4. Leave from Front";
-        cout << "\n5. Display Circle";
-        cout << "\n6. Count Students";
+        cout << "\n5. Count Students";
+        cout << "\n6. Display Circle";
         cout << "\n7. Exit";
 
         cout << "\n\nEnter choice: ";
@@ -228,11 +231,11 @@ int main()
                 break;
 
             case 5:
-                display(head);
+                countStudents(head);
                 break;
 
             case 6:
-                countStudents(head);
+                display(head);
                 break;
 
             case 7:

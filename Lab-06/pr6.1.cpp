@@ -1,76 +1,94 @@
-#include <iostream>
+#include<iostream>
+#define MAX 5
 using namespace std;
 
-class Stack {
-    int arr[100];
-    int top;
-    int capacity;
+int stack[MAX];
+int top = -1;
 
-public:
-    Stack(int n) {
-        capacity = n;
-        top = -1;
+void push(int value)
+{
+    if(top == MAX-1)
+        cout << "Stack Overflow. Cannot push." << endl;
+    else
+    {
+        stack[++top]=value;
+        cout << "Tray " << value << " placed." << endl;
+        cout << "Current Top: " << stack[top] << endl;
     }
+}
 
-    void push(int tray) {
-        // Check overflow
-        if (top == capacity - 1) {
-            cout << "Error: Stack Overflow" << endl;
-            return;
-        }
-
-        arr[++top] = tray;
-        cout << "Top tray: " << arr[top] << endl;
+void pop()
+{
+    if(top == -1)
+    {
+        cout << "Stack Underflow. Cannot take tray." << endl;
     }
-
-    void pop() {
-        // Check underflow
-        if (top == -1) {
-            cout << "Error: Stack Underflow" << endl;
-            return;
-        }
-
-        cout << "Removed tray: " << arr[top] << endl;
+    else
+    {
+        cout << "Tray " << stack[top] << " taken." << endl;
         top--;
 
-        if (top == -1)
-            cout << "Top tray: Empty" << endl;
+        if(top == -1)
+        {
+            cout << "Stack is Empty!" << endl;
+        }
         else
-            cout << "Top tray: " << arr[top] << endl;
+        {
+            cout << "Current Top: " << stack[top] << endl;
+        }
     }
-};
+}
 
-int main() {
-    int n, operations;
+void display()
+{
+    if (top == -1)
+    {
+        cout << "Stack is Empty!" << endl;
+    }
+    else
+    {
+        cout << "Stack elements: ";
+        for (int i = top; i >= 0; i--)
+        {
+            cout << stack[i] << " ";
+        }
+        cout << endl;
+        cout << "Current Top: " << stack[top] << endl;
+    }
+}
 
-    cout << "Enter stack capacity: ";
-    cin >> n;
+int main()
+{
+    int choice, value;
+    while(true)
+    {
+        cout << "\n1. Push (Place Tray)" << endl;
+        cout << "2. Pop (Take Tray)" << endl;
+        cout << "3. Display" << endl;
+        cout << "4. Exit" << endl;
 
-    Stack s(n);
-
-    cout << "Enter number of operations: ";
-    cin >> operations;
-
-    for (int i = 0; i < operations; i++) {
-        int choice, tray;
-
-        cout << "\n1. Place tray (Push)" << endl;
-        cout << "2. Take tray (Pop)" << endl;
         cout << "Enter choice: ";
         cin >> choice;
 
-        if (choice == 1) {
-            cout << "Enter tray number: ";
-            cin >> tray;
-            s.push(tray);
-        }
-        else if (choice == 2) {
-            s.pop();
-        }
-        else {
-            cout << "Invalid operation" << endl;
+        switch(choice)
+        {
+            case 1:
+                cout << "Enter value: ";
+                cin >> value;
+                push(value);
+                break;
+            case 2:
+                pop();
+                break;
+            case 3:
+                display();
+                break;
+            case 4:
+                cout << "Program ended.";
+                return 0;
+            default:
+                cout << "Invalid choice!";
         }
     }
-
     return 0;
 }

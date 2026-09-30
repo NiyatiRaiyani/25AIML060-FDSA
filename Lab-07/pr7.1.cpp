@@ -17,7 +17,8 @@ void enqueue(int value)
         if(front == -1)
             front = 0;
 
-        queue[++rear] = value;
+        rear++;
+        queue[rear] = value;
 
         cout << "Token " << value << " issued." << endl;
         cout << "Current Front: " << queue[front] << endl;
@@ -33,7 +34,6 @@ void dequeue()
     else
     {
         cout << "Token " << queue[front] << " served." << endl;
-
         front++;
 
         if(front > rear)

@@ -46,7 +46,6 @@ void attend()
 
         front = front->next;
 
-        // If queue becomes empty
         if(front == NULL)
             rear = NULL;
 
